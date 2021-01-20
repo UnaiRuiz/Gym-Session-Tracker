@@ -1,20 +1,17 @@
 const GymSession = require("../models/gymsession.model");
 
 exports.listGymSessions = (req, res) => {
-    GymSession.find({}, (err, result) => {
+    GymSession.find({UserId: req.userId}, (err, result) => {
         if (err) {
             console.log(err);
         }
-        res.send(result);
+        res.send(result); //TODO enviar las sesiones ordenadas por fecha
     })
 };
 
-exports.addGymSession = (req, res) => {
-    const date = req.body.date;
-    const duration = req.body.duration;
-    const description = req.body.description;
-    const sup = req.body.sup;
-    const gymsession = new GymSession({ Date: date, Duration: duration, Description: description, Sup: sup });
+exports.addGymSession = (req, res, next) => {
+    const {date, duration, description, sup} = req.body.gymsession
+    const gymsession = new GymSession({ Date: date, Duration: duration, Description: description, Sup: sup, UserId: req.userId });
     try {
         gymsession.save();
     } catch (err) {
@@ -23,7 +20,6 @@ exports.addGymSession = (req, res) => {
 };
 
 exports.deleteGymSession = (req, res) => {
-    console.log("eliminar:", req.params.id)
     try {
         GymSession.findByIdAndRemove(req.params.id).exec();
     } catch (err) {
@@ -32,12 +28,9 @@ exports.deleteGymSession = (req, res) => {
 };
 
 exports.editGymSession = (req, res) => {
-    const newdate = req.body.date;
-    const newduration = req.body.duration;
-    const newdescription = req.body.description;
-    const newsup = req.body.sup;
+    const {date, duration, description, sup, id} = req.body.gymsession
     try {
-        GymSession.findByIdAndUpdate(req.body.id, { Date: newdate, Duration: newduration, Description: newdescription, Sup: newsup }, { new: true }, (err, response) => {
+        GymSession.findByIdAndUpdate(id, { Date: date, Duration: duration, Description: description, Sup: sup, UserId: req.userId }, { new: true }, (err, response) => {
             if (err) return res.status(500).send(err);
             return res.send(response);
         });

@@ -18,10 +18,28 @@ export default class AddGymSession extends Component {
 
     this.state = {
       date: new Date(),
-      duration: 0,
+      duration: 60,
       description: '',
       sup: false,
     }
+  }
+
+  componentDidMount() {
+    //Check if logged
+    axios.get("http://localhost:5000/user/isAuth", {
+      headers: {
+        "auth": localStorage.getItem("token"),
+      }
+    })
+      .then(response => {
+        if (!response.data.auth) {
+          window.location = '/signin'
+        }
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   onChangeDate(date) {
@@ -47,19 +65,18 @@ export default class AddGymSession extends Component {
 
   validateForm() {
     if (this.state.date == null) {
-      console.log("no hay fecha")
       alert("Select the date");
       return false
     } else if (isNaN(this.state.duration)) {
-      console.log("numero mal")
       alert("Enter the duration in minutes.");
       return false
     } else if (this.state.description.length > 50) {
-      console.log("muy largo")
       alert("Description is too long.");
       return false
+    } else if(this.state.description.length === 0) {
+      alert("Insert a description.");
+      return false
     } else {
-      console.log("bien")
       return true
     }
   }
@@ -77,9 +94,12 @@ export default class AddGymSession extends Component {
       description: this.state.description,
       sup: this.state.sup
     }
-    console.log(gymsession);
     if (this.validateForm()) {
-        axios.post("http://localhost:5000/gymsession/add", gymsession)
+        axios.post("http://localhost:5000/gymsession/add", 
+        {
+          "auth": localStorage.getItem("token"),
+          gymsession
+        })
             .then(res => console.log(res.data));
         window.location = '/';
     }else{

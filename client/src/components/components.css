@@ -1,37 +1,37 @@
 .main-footer {
-    color: white;
-    background-color: #494545;
-    padding-top: 10px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
+  color: white;
+  background-color: #494545;
+  padding-top: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 
-  #bottom-footer{
-    padding-bottom: 10px;
-  }
+#bottom-footer{
+  padding-bottom: 10px;
+}
 
-  #bottom-footer-text{
-    text-align: center;
-  }
+#bottom-footer-text{
+  text-align: center;
+}
 
-  ul{
-      list-style: none;
-  }
+ul{
+    list-style: none;
+}
 
-  .radioInput{
-    margin: 10px;
-  }
+.radioInput{
+  margin: 10px;
+}
 
-  #nolink{
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #307FF6;
-    border-radius: 5px;
-    padding: 4px 12px;
-    text-align: center;
-    display: inline-block;
-  }
+#nolink{
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #307FF6;
+  border-radius: 5px;
+  padding: 4px 12px;
+  text-align: center;
+  display: inline-block;
+}
   
   
   /* #edit-button{

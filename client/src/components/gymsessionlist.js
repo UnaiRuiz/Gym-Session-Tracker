@@ -10,11 +10,33 @@ export default class GymSessionList extends Component {
 
     this.deleteGymSession = this.deleteGymSession.bind(this);
 
-    this.state = {gymsessions: []};
+    this.state = { gymsessions: [] };
   }
 
   componentDidMount() {
-    axios.get("http://localhost:5000/gymsession")
+    //Check if logged
+    axios.get("http://localhost:5000/user/isAuth", {
+      headers: {
+        "auth": localStorage.getItem("token"),
+      }
+    })
+      .then(response => {
+        console.log("logged: " + response.data.auth);
+        if (!response.data.auth) {
+          window.location = '/signin'
+        }
+        return;
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    //Ask for gym sessions
+    axios.get("http://localhost:5000/gymsession", {
+      headers: {
+        "auth": localStorage.getItem("token"),
+      }
+    })
       .then(response => {
         this.setState({ gymsessions: response.data })
       })
@@ -24,8 +46,12 @@ export default class GymSessionList extends Component {
   }
 
   deleteGymSession(_id) {
-    axios.delete(`http://localhost:5000/gymsession/delete/${_id}`)
-      .then(response => { console.log(response.data)});
+    axios.delete(`http://localhost:5000/gymsession/delete/${_id}`, {
+      data: {
+        "auth": localStorage.getItem("token"),
+      }
+    })
+      .then(response => { console.log(response.data) });
 
     this.setState({
       gymsessions: this.state.gymsessions.filter(el => el._id !== _id)
@@ -34,7 +60,7 @@ export default class GymSessionList extends Component {
 
   render() {
     return (
-      <div>
+      <div class="table-responsive">
         <h3>Gym Sessions:</h3>
         <table className="table">
           <thead className="thead-light">
@@ -48,30 +74,30 @@ export default class GymSessionList extends Component {
             </tr>
           </thead>
           <tbody>
-          {this.state.gymsessions.map((val) => {
-            return (
-              <tr key={val._id}>
-                <td>
-                  {val.Date.substring(0,10)}
-                </td>
-                <td>
-                  {val.Duration}
-                </td>
-                <td>
-                  {val.Description}
-                </td>
-                <td>
-                  {val.Sup ? ("yes") : ("no")}
-                </td>
-                <td>
-                <Link id="nolink" to={"/edit/"+val._id+"/"+val.Date+"/"+val.Duration+"/"+val.Description+"/"+val.Sup}>Edit</Link>
-                </td>
-                <td>
-                  <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this session?')) this.deleteGymSession(val._id) }}>Delete</button>
-                </td>
-              </tr>
-            );
-          })}
+            {this.state.gymsessions.map((val) => {
+              return (
+                <tr key={val._id}>
+                  <td>
+                    {val.Date.substring(0, 10)}
+                  </td>
+                  <td>
+                    {val.Duration}
+                  </td>
+                  <td>
+                    {val.Description}
+                  </td>
+                  <td>
+                    {val.Sup ? ("yes") : ("no")}
+                  </td>
+                  <td>
+                    <Link id="nolink" to={"/edit/" + val._id + "/" + val.Date + "/" + val.Duration + "/" + val.Description + "/" + val.Sup}>Edit</Link>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this session?')) this.deleteGymSession(val._id) }}>Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

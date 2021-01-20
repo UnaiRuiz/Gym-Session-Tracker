@@ -16,6 +16,10 @@ const GymSessionSchema = new Schema({
     Sup: {
         type: Boolean,
         required: false,
+    },
+    UserId: {
+        type: String,
+        required: false,
     }
 });
 
