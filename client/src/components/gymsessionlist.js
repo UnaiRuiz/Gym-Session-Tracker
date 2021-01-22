@@ -114,7 +114,6 @@ export default class GymSessionList extends Component {
             </div>
           </div>
         }
-
       </div>
     )
   }
