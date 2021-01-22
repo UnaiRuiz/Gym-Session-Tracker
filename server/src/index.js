@@ -1,11 +1,18 @@
 require('dotenv').config();
 const express = require("express");
+var path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('./config/db.config.js')
 
 // Initializations
 const app = express();
+
+// Views (from React)
+app.get('*', (req, res) => {
+  res.send(express.static(path.join(__dirname, '../../client/build/index.html')))  ;
+});
+
 
 // Settings
 app.set("port", process.env.PORT || 5000);
