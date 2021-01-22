@@ -9,6 +9,7 @@ export default class SignUp extends Component {
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeConfirmPassword = this.onChangeConfirmPassword.bind(this);
         this.validateForm = this.validateForm.bind(this);
         this.goBack = this.goBack.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -16,6 +17,7 @@ export default class SignUp extends Component {
         this.state = {
             username: '',
             password: '',
+            confirmPassword: '',
         }
     }
 
@@ -29,16 +31,22 @@ export default class SignUp extends Component {
             password: e.target.value
         })
     }
+    onChangeConfirmPassword(e) {
+        this.setState({
+            confirmPassword: e.target.value
+        })
+    }
 
     validateForm() {
         console.log("empieza validación")
         if (this.state.username === '') {
-            console.log("Username empty")
             alert("Choose a username");
             return false
         } else if (this.state.password.length > 20) {
-            console.log("wrong password lenght")
             alert("Wrong Password length.");
+            return false
+        } else if (this.state.password !== this.state.confirmPassword) {
+            alert("Passwords do not match.");
             return false
         } else {
             console.log("good")
@@ -54,18 +62,18 @@ export default class SignUp extends Component {
         e.preventDefault();
 
         const user = {
-            username: this.state.username,
+            username: this.state.username.toLowerCase(),
             password: this.state.password,
         }
         console.log(user);
         if (this.validateForm()) {
-            user.password = MD5(user.password ).toString();
+            user.password = MD5(user.password).toString();
             axios.post("http://localhost:5000/user/signup", user)
                 .then((res) => {
                     console.log(res.data);
-                    if(!res.data.auth){
+                    if (!res.data.auth) {
                         alert(res.data.message);
-                    }else{
+                    } else {
                         window.location = '/signin';
                     }
                 })
@@ -76,32 +84,43 @@ export default class SignUp extends Component {
 
     render() {
         return (
-            <div>
-                <h3>Sign Up</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChangeUsername}
-                            autoFocus
-                        />
+            <div class="container-fluid">
+                <div class="row justify-content-center align-self-center">
+                    <div class="col-md-6 col-xl-4">
+                        <h3>Sign Up</h3>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label>Username: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.username}
+                                    onChange={this.onChangeUsername}
+                                    autoFocus
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password: </label>
+                                <input type="password"
+                                    className="form-control"
+                                    value={this.state.password}
+                                    onChange={this.onChangePassword}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Confirm Password: </label>
+                                <input type="password"
+                                    className="form-control"
+                                    value={this.state.confirmPassword}
+                                    onChange={this.onChangeConfirmPassword}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input type="submit" value="Create account" className="btn btn-primary" />
+                            </div>
+                        </form>
                     </div>
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input type="password"
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Submit" className="btn btn-primary" />
-                    </div>
-                </form>
+                </div>
             </div>
         )
     }

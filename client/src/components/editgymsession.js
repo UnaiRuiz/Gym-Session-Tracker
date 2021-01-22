@@ -112,49 +112,56 @@ export default class EditGymSession extends Component {
   }
   render() {
     return (
-      <div>
-        <h3>Edit the selected Gym Session</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>Date: </label>
-            <div>
-              <DatePicker
-                selected={this.state.date}
-                onChange={this.onChangeDate} dateFormat='yyyy-MM-dd' maxDate={new Date()}
-                isClearable showYearDropdown scrollableMonthYearDropdown closeOnScroll={true}
-                strictParsing todayButton="Select Today" />
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card border-dark mb-3 center-block">
+              <h3 class="card-header">Edit the selected gym Session</h3>
+              <form onSubmit={this.onSubmit}>
+                <div class="card-body">
+                  <div className="form-group">
+                    <label>Date: </label>
+                    <div>
+                      <DatePicker
+                        selected={this.state.date}
+                        onChange={this.onChangeDate} dateFormat='yyyy-MM-dd' maxDate={new Date()}
+                        isClearable showYearDropdown scrollableMonthYearDropdown closeOnScroll={true}
+                        strictParsing todayButton="Select Today" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Duration (in minutes): </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={this.state.duration}
+                      onChange={this.onChangeDuration}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Description: </label>
+                    <input type="text"
+                      className="form-control"
+                      value={this.state.description}
+                      onChange={this.onChangeDescription}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Did you take any supplements?: </label>
+                    <input className="radioInput" type="radio" checked="checked" id="no" name="supplements" value="false" onChange={this.onChangeSup} />
+                    <label>no</label>
+                    <input className="radioInput" type="radio" id="yes" name="supplements" value="true" onChange={this.onChangeSup} />
+                    <label>yes</label>
+                  </div>
+                  <div className="form-group">
+                    <input type="submit" value="Submit changes" className="btn btn-primary" />
+                    <input id="secondbutton" type="button" value="Cancel" onClick={() => { this.goBack() }} className="btn btn-danger" />
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <div className="form-group">
-            <label>Duration (in minutes): </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-          </div>
-          <div className="form-group">
-            <label>Description: </label>
-            <input type="text"
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-            />
-          </div>
-          <div className="form-group">
-            <label>Did you take any supplements?: </label>
-            <input className="radioInput" type="radio" checked="checked" id="no" name="supplements" value="false" onChange={this.onChangeSup} />
-            <label>no</label>
-            <input className="radioInput" type="radio" id="yes" name="supplements" value="true" onChange={this.onChangeSup} />
-            <label>yes</label>
-          </div>
-
-          <div className="form-group">
-            <input type="submit" value="Submit changes" className="btn btn-primary" />
-            <input id="secondbutton" type="button" value="Cancel" onClick={() => { this.goBack() }} className="btn btn-danger" />
-          </div>
-        </form>
+        </div>
       </div>
     )
   }

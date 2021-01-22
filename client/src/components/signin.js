@@ -22,21 +22,21 @@ export default class SignIn extends Component {
     componentDidMount() {
         //Check if logged
         axios.get("http://localhost:5000/user/isAuth", {
-          headers: {
-            "auth": localStorage.getItem("token"),
-          }
-        })
-          .then(response => {
-            console.log("logged: " + response.data.auth);
-            if (response.data.auth) {
-              window.location = '/'
+            headers: {
+                "auth": localStorage.getItem("token"),
             }
-            return;
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
+        })
+            .then(response => {
+                console.log("logged: " + response.data.auth);
+                if (response.data.auth) {
+                    window.location = '/'
+                }
+                return;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     onChangeUsername(e) {
         this.setState({
@@ -72,18 +72,18 @@ export default class SignIn extends Component {
     onSubmit(e) {
         e.preventDefault();
         const user = {
-            username: this.state.username,
+            username: this.state.username.toLocaleLowerCase(),
             password: this.state.password,
         }
         console.log(user);
         if (this.validateForm()) {
-            user.password = MD5(user.password ).toString();
+            user.password = MD5(user.password).toString();
             axios.post("http://localhost:5000/user/signin", user)
                 .then((res) => {
                     console.log(res.data);
-                    if(!res.data.auth){
+                    if (!res.data.auth) {
                         alert(res.data.message);
-                    }else{
+                    } else {
                         localStorage.setItem("token", res.data.token)
                         window.location = '/';
                     }
@@ -95,32 +95,36 @@ export default class SignIn extends Component {
 
     render() {
         return (
-            <div>
-                <h3>Sign In</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChangeUsername}
-                            autoFocus
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Password: </label>
-                        <input type="password"
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
-                        />
-                    </div>
+            <div class="container-fluid">
+                <div class="row justify-content-center align-self-center">
+                    <div class="col-md-6 col-xl-4">
+                        <h3>Sign In</h3>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label>Username: </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.username}
+                                    onChange={this.onChangeUsername}
+                                    autoFocus
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password: </label>
+                                <input type="password"
+                                    className="form-control"
+                                    value={this.state.password}
+                                    onChange={this.onChangePassword}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <input type="submit" value="Submit" className="btn btn-primary" />
+                            <div className="form-group">
+                                <input type="submit" value="Submit" className="btn btn-primary" />
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         )
     }

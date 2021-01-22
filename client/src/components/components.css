@@ -1,10 +1,8 @@
 .main-footer {
-  color: white;
-  background-color: #494545;
   padding-top: 10px;
   position: relative;
-  bottom: 0;
-  width: 100%;
+  text-align: center;
+  
 }
 
 #bottom-footer{
@@ -32,22 +30,54 @@ ul{
   text-align: center;
   display: inline-block;
 }
-  
-  
-  /* #edit-button{
-      background-image: url( 'https://www.flaticon.com/svg/static/icons/svg/61/61456.svg' );
-      background-size: 40px 40px;
-      height: 40px;  
-      width: 40px;
-  }
-
-  #delete-button{
-    background-image: url( 'https://image.flaticon.com/icons/png/512/542/542724.png' );
-    background-size: 40px 40px; 
-    height: 40px;  
-    width: 40px;
-} */
 
 #secondbutton{
   margin-left: 30px;
+}
+
+.rotate1{
+  -webkit-transition: -webkit-transform 0.75s;
+  padding-right: 5px;
+  width: 40px;
+  height: 40px;
+}
+
+.rotate1:hover{
+  -webkit-transform: rotate(360deg) translateZ(0);
+}
+
+#start-gym{
+  opacity: 0.5;
+  filter: contrast(180%) blur(1px);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#overlay {
+  position: absolute;
+  align-self: baseline;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #f9ffff;
+}
+#img-overlay:hover #overlay {
+  opacity: 0.5;
+}
+
+#text {
+  color: black;
+  font-size: 50px;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }

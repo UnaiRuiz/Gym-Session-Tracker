@@ -60,46 +60,61 @@ export default class GymSessionList extends Component {
 
   render() {
     return (
-      <div class="table-responsive">
-        <h3>Gym Sessions:</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Date</th>
-              <th>Duration (mins)</th>
-              <th>Description</th>
-              <th>Supplements?</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.gymsessions.map((val) => {
-              return (
-                <tr key={val._id}>
-                  <td>
-                    {val.Date.substring(0, 10)}
-                  </td>
-                  <td>
-                    {val.Duration}
-                  </td>
-                  <td>
-                    {val.Description}
-                  </td>
-                  <td>
-                    {val.Sup ? ("yes") : ("no")}
-                  </td>
-                  <td>
-                    <Link id="nolink" to={"/edit/" + val._id + "/" + val.Date + "/" + val.Duration + "/" + val.Description + "/" + val.Sup}>Edit</Link>
-                  </td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this session?')) this.deleteGymSession(val._id) }}>Delete</button>
-                  </td>
+      <div>
+        {this.state.gymsessions.length > 0 ?
+          <div class="container table-responsive">
+            <h3>Gym Sessions: {this.state.gymsessions.length}</h3>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Date</th>
+                  <th>Duration (mins)</th>
+                  <th>Description</th>
+                  <th>Supplements?</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                {this.state.gymsessions.map((val) => {
+                  return (
+                    <tr key={val._id}>
+                      <td>
+                        {val.Date.substring(0, 10)}
+                      </td>
+                      <td>
+                        {val.Duration}
+                      </td>
+                      <td>
+                        {val.Description}
+                      </td>
+                      <td>
+                        {val.Sup ? ("yes") : ("no")}
+                      </td>
+                      <td>
+                        <Link id="nolink" to={"/edit/" + val._id + "/" + val.Date + "/" + val.Duration + "/" + val.Description + "/" + val.Sup}>Edit</Link>
+                      </td>
+                      <td>
+                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this session?')) this.deleteGymSession(val._id) }}>Delete</button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div> :
+          <div class="container">
+            <div class="row justify-content-center">
+              <div id="img-overlay" class="col-lg-10">
+                <img class="img-fluid " id="start-gym" src="/in-gym.jpg" alt="gym session tracker logo"></img>
+                <div class="container" id="overlay">
+                  <div id="text">Add your first gym session!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
     )
   }

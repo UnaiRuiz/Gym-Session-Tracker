@@ -30,7 +30,7 @@ function App() {
         }
       })
         .then(response => {
-          console.log("logged: "+response.data.auth);
+          console.log("logged: " + response.data.auth);
           setLoggedIn(true);
           return;
         })
@@ -42,18 +42,20 @@ function App() {
   }, [loggedIn])
 
   return (
-      <Router>
-      <div className="container">
-        <Navbar logged={loggedIn}/>
-        <br />
-        <Route path="/" exact component={GymSessionList} />
-        <Route path="/edit/:id/:date/:duration?/:description?/:sup" component={EditGymSession} />
-        <Route path="/add" component={AddGymSession} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
+    <div className="page-container">
+      <div className="content-wrapper">
+        <Router>
+          <Navbar logged={loggedIn} />
+          <br />
+          <Route path="/" exact component={GymSessionList} />
+          <Route path="/edit/:id/:date/:duration?/:description?/:sup" component={EditGymSession} />
+          <Route path="/add" component={AddGymSession} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+        </Router>
       </div>
       <Footer />
-    </Router>
+    </div>
   );
 }
 

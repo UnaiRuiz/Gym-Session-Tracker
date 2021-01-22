@@ -73,7 +73,7 @@ export default class AddGymSession extends Component {
     } else if (this.state.description.length > 50) {
       alert("Description is too long.");
       return false
-    } else if(this.state.description.length === 0) {
+    } else if (this.state.description.length === 0) {
       alert("Insert a description.");
       return false
     } else {
@@ -81,7 +81,7 @@ export default class AddGymSession extends Component {
     }
   }
 
-  goBack(){
+  goBack() {
     window.location = '/';
   }
 
@@ -95,64 +95,71 @@ export default class AddGymSession extends Component {
       sup: this.state.sup
     }
     if (this.validateForm()) {
-        axios.post("http://localhost:5000/gymsession/add", 
+      axios.post("http://localhost:5000/gymsession/add",
         {
           "auth": localStorage.getItem("token"),
           gymsession
         })
-            .then(res => console.log(res.data));
-        window.location = '/';
-    }else{
-        console.log("not sent")
+        .then(res => console.log(res.data));
+      window.location = '/';
+    } else {
+      console.log("not sent")
     }
   }
 
   render() {
     return (
-    <div>
-      <h3>Add a new Gym Session</h3>
-      <form onSubmit={this.onSubmit}>
-      <div className="form-group">
-          <label>Date: </label>
-          <div>
-            <DatePicker 
-                selected={this.state.date}
-                onChange={this.onChangeDate} dateFormat='yyyy-MM-dd' maxDate={new Date()}
-                isClearable showYearDropdown scrollableMonthYearDropdown closeOnScroll={true}
-                strictParsing todayButton="Select Today" />
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xs-12 col-lg-6">
+            <div class="card border-dark mb-3 center-block">
+              <h3 class="card-header">Add a new Gym Session</h3>
+              <form onSubmit={this.onSubmit}>
+                <div class="card-body">
+                  <div className="form-group">
+                    <label>Date: </label>
+                    <div>
+                      <DatePicker
+                        selected={this.state.date}
+                        onChange={this.onChangeDate} dateFormat='yyyy-MM-dd' maxDate={new Date()}
+                        isClearable showYearDropdown scrollableMonthYearDropdown closeOnScroll={true}
+                        strictParsing todayButton="Select Today" />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Duration (in minutes): </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={this.state.duration}
+                      onChange={this.onChangeDuration}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Description: </label>
+                    <input type="text"
+                      className="form-control"
+                      value={this.state.description}
+                      onChange={this.onChangeDescription}
+                    />
+                  </div>
+                  <div className="form-group ">
+                    <label>Did you take any supplements?: </label>
+                    <input className="radioInput" type="radio" checked="checked" id="no" name="supplements" value="false" onChange={this.onChangeSup} />
+                    <label>no</label>
+                    <input className="radioInput" type="radio" id="yes" name="supplements" value="true" onChange={this.onChangeSup} />
+                    <label>yes</label>
+                  </div>
+                  <div className="form-group">
+                    <input type="submit" value="Submit" className="btn btn-primary" />
+                    <input id="secondbutton" type="button" value="Cancel" onClick={() => { this.goBack() }} className="btn btn-danger" />
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div className="form-group">
-          <label>Duration (in minutes): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-              />
-        </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <input  type="text"
-              className="form-control"
-              value={this.state.description}
-              onChange={this.onChangeDescription}
-              />
-        </div>
-        <div className="form-group"> 
-          <label>Did you take any supplements?: </label>
-          <input className="radioInput" type="radio" checked="checked" id="no" name="supplements" value="false" onChange={this.onChangeSup} />
-          <label>no</label>
-          <input className="radioInput" type="radio" id="yes" name="supplements" value="true" onChange={this.onChangeSup} />
-          <label>yes</label>
-        </div>
-
-        <div className="form-group">
-          <input type="submit" value="Submit" className="btn btn-primary" />
-          <input id="secondbutton" type="button" value="Cancel" onClick={() => { this.goBack() }} className="btn btn-danger" />
-        </div>
-      </form>
-    </div>
+      </div>
     )
   }
 }
