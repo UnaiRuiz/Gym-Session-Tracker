@@ -5,7 +5,7 @@ exports.listGymSessions = (req, res) => {
         if (err) {
             console.log(err);
         }
-        res.send(result); //TODO enviar las sesiones ordenadas por fecha
+        res.send(result);
     })
 };
 

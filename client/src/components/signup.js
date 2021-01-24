@@ -38,7 +38,6 @@ export default class SignUp extends Component {
     }
 
     validateForm() {
-        console.log("empieza validación")
         if (this.state.username === '') {
             alert("Choose a username");
             return false
@@ -49,7 +48,6 @@ export default class SignUp extends Component {
             alert("Passwords do not match.");
             return false
         } else {
-            console.log("good")
             return true
         }
     }
@@ -70,7 +68,6 @@ export default class SignUp extends Component {
             user.password = MD5(user.password).toString();
             axios.post("http://localhost:5000/user/signup", user)
                 .then((res) => {
-                    console.log(res.data);
                     if (!res.data.auth) {
                         alert(res.data.message);
                     } else {
@@ -87,7 +84,7 @@ export default class SignUp extends Component {
             <div class="container-fluid">
                 <div class="row justify-content-center align-self-center">
                     <div class="col-md-6 col-xl-4">
-                        <h3>Sign Up</h3>
+                        <h3><i class="far fa-address-card"></i> Sign Up</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Username: </label>

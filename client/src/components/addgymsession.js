@@ -127,7 +127,7 @@ export default class AddGymSession extends Component {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Duration (in minutes): </label>
+                    <label>Duration (in minutes):</label>
                     <input
                       type="text"
                       className="form-control"

@@ -79,7 +79,6 @@ export default class EditGymSession extends Component {
       alert("Insert a description.");
       return false
     } else {
-      console.log("bien")
       return true
     }
   }
@@ -98,7 +97,6 @@ export default class EditGymSession extends Component {
       sup: this.state.sup,
       id: this.props.match.params.id
     }
-    console.log(gymsession);
     if (this.validateForm()) {
       axios.put("http://localhost:5000/gymsession/edit", {
         "auth": localStorage.getItem("token"),
@@ -130,7 +128,7 @@ export default class EditGymSession extends Component {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Duration (in minutes): </label>
+                    <label>Duration (in minutes):</label>
                     <input
                       type="text"
                       className="form-control"

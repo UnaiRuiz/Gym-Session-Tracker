@@ -25,9 +25,9 @@ function Footer() {
           <div className="col-sm justify-content-center">
             <h4>PLATFORM</h4>
             <ul>
-              <li>Heroku</li>
-              <li>Mongo Atlas</li>
-              <li>MERN</li>
+              <li>NodeJS + ExpressJS <i class="fab fa-node-js"></i></li>
+              <li>ReactJS <i class="fab fa-react"></i></li>
+              <li>MongoDB <i class="fas fa-database"></i></li>
             </ul>
           </div>
         </div>

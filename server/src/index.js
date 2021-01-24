@@ -8,12 +8,6 @@ require('./config/db.config.js')
 // Initializations
 const app = express();
 
-// Views (from React)
-app.get('*', (req, res) => {
-  res.send(express.static(path.join(__dirname, '../../client/build/index.html')))  ;
-});
-
-
 // Settings
 app.set("port", process.env.PORT || 5000);
 

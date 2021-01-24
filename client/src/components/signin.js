@@ -27,7 +27,6 @@ export default class SignIn extends Component {
             }
         })
             .then(response => {
-                console.log("logged: " + response.data.auth);
                 if (response.data.auth) {
                     window.location = '/'
                 }
@@ -50,17 +49,13 @@ export default class SignIn extends Component {
     }
 
     validateForm() {
-        console.log("empieza validación")
         if (this.state.username === '') {
-            console.log("Username empty")
             alert("Choose a username");
             return false
         } else if (this.state.password.length > 20) {
-            console.log("wrong password lenght")
             alert("Wrong Password length.");
             return false
         } else {
-            console.log("good")
             return true
         }
     }
@@ -75,7 +70,6 @@ export default class SignIn extends Component {
             username: this.state.username.toLocaleLowerCase(),
             password: this.state.password,
         }
-        console.log(user);
         if (this.validateForm()) {
             user.password = MD5(user.password).toString();
             axios.post("http://localhost:5000/user/signin", user)
@@ -98,7 +92,7 @@ export default class SignIn extends Component {
             <div class="container-fluid">
                 <div class="row justify-content-center align-self-center">
                     <div class="col-md-6 col-xl-4">
-                        <h3>Sign In</h3>
+                        <h3><i class="far fa-address-card"></i> Sign In</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <label>Username: </label>

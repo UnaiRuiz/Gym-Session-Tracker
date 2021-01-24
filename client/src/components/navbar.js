@@ -17,8 +17,6 @@ export default class Navbar extends Component {
       }
     })
       .then(response => {
-        console.log("logged from navbar: " + response.data.auth);
-        console.log("logged variable from navbar: " + this.props.logged);
         if (response.data.auth) {
           this.loggedIn = true
         } else {
@@ -35,7 +33,7 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
         <Link to="/" className="navbar-brand">
-          <img class="rotate1" src="/dumbbell-icon.png" alt="gym session tracker logo"></img> Gym Session Tracker</Link>
+          <img class="rotate1" src="/images//dumbbell-icon.png" alt="gym session tracker logo"></img> Gym Session Tracker</Link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -60,15 +58,15 @@ export default class Navbar extends Component {
             this.props.logged ?
               <ul class="navbar-nav">
                 <li className="navbar-item">
-                  <Link className="nav-link"><span onClick={this.logout}>Log out</span></Link>
+                  <Link className="nav-link"><span onClick={this.logout}>Log out <i class="fas fa-sign-out-alt"></i></span></Link>
                 </li>
               </ul> :
               <ul class="navbar-nav">
                 <li className="navbar-text">
-                  <Link to="/signin" className="nav-link">Sing in</Link>
+                  <Link to="/signin" className="nav-link">Sing in <i class="fas fa-sign-in-alt"></i></Link>
                 </li>
                 <li className="navbar-text">
-                  <Link to="/signup" className="nav-link">Sing Up</Link>
+                  <Link to="/signup" className="nav-link">Sing Up <i class="fas fa-user-plus"></i></Link>
                 </li>
               </ul>
           }

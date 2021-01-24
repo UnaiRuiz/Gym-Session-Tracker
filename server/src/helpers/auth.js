@@ -39,7 +39,6 @@ router.use('/gymsession/edit', function (req, res, next) {
             });
         } else {
             req.userId = decoded.id;
-            console.log("ey")
             next();
         }
     })
@@ -54,7 +53,6 @@ router.use('/gymsession/delete/:id', function (req, res, next) {
             });
         } else {
             req.userId = decoded.id;
-            console.log("ey")
             next();
         }
     })
